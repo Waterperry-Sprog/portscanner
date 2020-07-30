@@ -10,7 +10,7 @@
 #include <netdb.h>
 #include <sqlite3.h>
 
-#define DEBUG 0
+#define DEBUG 0		// global debug flag - set to 1 to print (a LOT of) extra information
 
 int status;
 static int prog_update = 0;	// flag used by interrupts to signal progress update
@@ -30,16 +30,16 @@ FILE *fp;
 char *append(char*,char*); 	//appends two strings.
 char *toStr(int);	//converts an integer to a string (for port specification)
 char *portInfo(int);	//gets the/a service associated with a port
-int length(char*);
-char *writeXML(char*,int,char*,int);
+int length(char*);	//works out length of string (because why use a standard library function?)
+char *writeXML(char*,int,char*,int);	//reformats the input into xml-like syntax.
 int parse(char*, int);	//parses the port string given in cmd args to a start or end port (based on int passed) 
 void sighandle(int);	//handle the interrupt to give progress report.
 void exithandle(int);	//handle a Ctrl+C (mostly important for clean file I/O)
 void usage(void);	//print invalid usage message and quit
 void help(char*);	//print help message
 void procArgs(int,char**);	//process input arguments
-void showBanner(void);
-int *checkOpen(int);
+void showBanner(void);	//shows the port scan banner
+int *checkOpen(int);	//check if a port is open.
 
 int main(int argc, char **argv){
 
